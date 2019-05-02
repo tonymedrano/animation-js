@@ -7,7 +7,6 @@
  * Copyright (c) 2019 CANVAS TYPESCRIPT PHYSICS by TONY MEDRANO
  */
 
-
 export class Vector {
 
     constructor(public _x: number, public _y: number) {
@@ -15,84 +14,82 @@ export class Vector {
         this._y = 0
     }
 
-    create(x: number, y: number) {
+    static create(x: number, y: number) {
         const obj = new Vector(x, y)
         obj.x = x
         obj.y = y
         return obj
     }
 
+    get x(): number {
+        return this._x
+    }
+
     set x(value: number) {
         this._x = value
     }
 
-    get x() {
-        return this._x
+    get y(): number {
+        return this._y
     }
 
     set y(value: number) {
         this._y = value
     }
 
-    get y() {
-        return this._y
+    get angle(): number {
+        return Math.atan2(this._y, this._x)
     }
 
-    setAngle: function(angle) {
-    var length = this.getLength()
-    this._x = Math.cos(angle) * length
-    this._y = Math.sin(angle) * length
-},
+    set angle(angle: number) {
+        const length = this.length
+        this._x = Math.cos(angle) * length
+        this._y = Math.sin(angle) * length
+    }
 
-getAngle: function() {
-    return Math.atan2(this._y, this._x)
-},
+    get length(): number {
+        return Math.sqrt(this._x * this._x + this._y * this._y)
+    }
 
-setLength: function(length) {
-    var angle = this.getAngle()
-    this._x = Math.cos(angle) * length
-    this._y = Math.sin(angle) * length
-},
+    set length(length: number) {
+        const angle = this.angle
+        this._x = Math.cos(angle) * length
+        this._y = Math.sin(angle) * length
+    }
 
-getLength: function() {
-    return Math.sqrt(this._x * this._x + this._y * this._y)
-},
+    add(val2: any): Vector {
+        return Vector.create(this._x + val2.x, this._y + val2.y)
+    }
 
-//. Stop here
+    subtract(val2: any): Vector {
+        return Vector.create(this._x - val2.x, this._y - val2.y)
+    }
 
-add: function(v2) {
-    return vector.create(this._x + v2.getX(), this._y + v2.getY())
-},
+    multiply(value: number): Vector {
+        return Vector.create(this._x * value, this._y * value)
+    }
 
-subtract: function(v2) {
-    return vector.create(this._x - v2.getX(), this._y - v2.getY())
-},
+    divide(value: number): Vector {
+        return Vector.create(this._x / value, this._y / value)
+    }
 
-multiply: function(val) {
-    return vector.create(this._x * val, this._y * val)
-},
+    addTo(val2: any): void {
+        this._x += val2.x
+        this._y += val2.y
+    }
 
-divide: function(val) {
-    return vector.create(this._x / val, this._y / val)
-},
+    subtractFrom(val2: any): void {
+        this._x -= val2.x
+        this._y -= val2.y
+    }
 
-addTo: function(v2) {
-    this._x += v2.getX()
-    this._y += v2.getY()
-},
+    multiplyBy(value: any): void {
+        this._x *= value
+        this._y *= value
+    }
 
-subtractFrom: function(v2) {
-    this._x -= v2.getX()
-    this._y -= v2.getY()
-},
-
-multiplyBy: function(val) {
-    this._x *= val
-    this._y *= val
-},
-
-divideBy: function(val) {
-    this._x /= val
-    this._y /= val
-}
+    divideBy(value: any): void {
+        this._x /= value
+        this._y /= value
+    }
 }
